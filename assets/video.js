@@ -93,7 +93,7 @@ window.addEventListener("load", () => {
     })
 
     participant.on("trackUnpublished", (track) => {
-      trackUnpublished(track);
+      trackUnpublished(track, participant);
     })
   }
 
@@ -125,10 +125,12 @@ window.addEventListener("load", () => {
     el.remove();
   }
 
-  function trackUnpublished(trackPublication) {
-    trackPublication.track.detach().forEach(function (mediaElement) {
+  function trackUnpublished(trackPublication, participant) {
+    if (trackPublication.track) trackPublication.track.detach().forEach(function (mediaElement) {
       mediaElement.remove();
     });
+    const el = document.getElementById(participant.identity);
+    el.innerHTML = '';
   }
 
   function tidyUp(room) {
